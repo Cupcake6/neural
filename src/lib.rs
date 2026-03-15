@@ -9,3 +9,5 @@ pub mod losses;
 
 #[allow(unused_variables)]
 pub mod dataset;
+
+pub use rand;
