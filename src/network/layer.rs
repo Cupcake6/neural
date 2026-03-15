@@ -5,7 +5,7 @@ use nalgebra::{
 };
 
 use rand::{
-    Rng, RngExt, distr::Distribution
+    RngExt, distr::Distribution
 };
 
 use thiserror::Error;
