@@ -5,7 +5,7 @@ use ::rand::distr::Uniform;
 use nalgebra::dvector;
 
 use neural::network::*;
-use neural::activations::*;
+use neural::activations::sigmoid::Sigmoid;
 use neural::losses;
 use neural::dataset::Sample;
 
@@ -39,7 +39,7 @@ const BUFFER_COLUMNS: usize = 160;
 async fn main() {
     let mut buffer = [BLACK; BUFFER_ROWS * BUFFER_COLUMNS];
 
-    let mut network = Network::random(&[2, 50, 1], sigmoid!(), &Uniform::new(-0.5, 0.5).unwrap()).unwrap();
+    let mut network = Network::random(&[2, 10, 10, 10, 1], Sigmoid::new(), &Uniform::new(-0.5, 0.5).unwrap()).unwrap();
 
     let mut dataset = Vec::<Sample>::new();
 

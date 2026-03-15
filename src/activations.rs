@@ -1,3 +1,6 @@
+pub mod sigmoid;
+pub mod leaky_relu;
+
 pub trait ActivationFn: 'static + ActivationFnClone {
     fn apply(&self, x: f32) -> f32;
     fn derivative(&self, x: f32, activation: f32) -> f32;
@@ -21,24 +24,3 @@ impl Clone for Box<dyn ActivationFn> {
         self.clone_box()
     }
 }
-
-#[derive(Clone)]
-pub struct Sigmoid;
-impl ActivationFn for Sigmoid {
-    fn apply(&self, x: f32) -> f32 {
-        1.0 / (1.0 + (-x).exp())
-    }
-
-    fn derivative(&self, x: f32, activation: f32) -> f32 {
-        activation * (1.0 - activation)
-    }
-}
-
-#[macro_export]
-macro_rules! sigmoid {
-    () => {
-        Box::new(Sigmoid)
-    };
-}
-
-pub use sigmoid;

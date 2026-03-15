@@ -16,11 +16,6 @@ pub struct Network {
     layers: Vec<Layer>,
 }
 
-pub struct NetworkCache {
-    activations: Vec<DVector<f32>>,
-    weighted_inputs: Vec<DVector<f32>>,
-}
-
 #[derive(Debug, Error)]
 pub enum NetworkError {
     #[error("too few layers ({0}) were specified in the constructor, at least two (input layer and output layer) are needed")]

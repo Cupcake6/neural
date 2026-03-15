@@ -13,11 +13,11 @@ impl Sample {
         }
     }
 
-    pub fn inputs(&self) -> DVectorView<f32> {
+    pub fn inputs(&'_ self) -> DVectorView<'_, f32> {
         self.inputs.as_view()
     }
 
-    pub fn expected_outputs(&self) -> DVectorView<f32> {
+    pub fn expected_outputs(&'_ self) -> DVectorView<'_, f32> {
         self.expected_outputs.as_view()
     }
 }
