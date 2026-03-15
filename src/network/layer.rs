@@ -166,6 +166,7 @@ impl Layer {
         self.biases.get_mut(output)
     }
 
+    #[inline]
     pub fn get_previous_input(&'_ self) -> DVectorView<'_, f32> {
         self.previous_inputs.as_view()
     }

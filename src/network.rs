@@ -29,6 +29,9 @@ pub enum NetworkError {
 
     #[error("{0}")]
     LossFnError(#[from] losses::LossFnError),
+
+    #[error("{0} activation functions must be specified, but {1} were specified")]
+    ActivationFnCountError(usize, usize),
 }
 
 fn check_layer_sizes(layer_sizes: &[usize]) -> Result<(), NetworkError> {
@@ -45,12 +48,13 @@ fn check_layer_sizes(layer_sizes: &[usize]) -> Result<(), NetworkError> {
 
 fn construct_layers<F>(layer_sizes: &[usize], constructor: F) -> Result<Vec<Layer>, LayerError> 
 where
-    F: Fn(usize, usize) -> Result<Layer, LayerError>
+    F: Fn(usize, usize, usize) -> Result<Layer, LayerError>
 {
     layer_sizes
         .iter()
         .zip(layer_sizes.iter().skip(1))
-        .map(|(&input_size, &output_size)| constructor(input_size, output_size))
+        .enumerate()
+        .map(|(i, (&input_size, &output_size))| constructor(input_size, output_size, i))
         .collect()
 }
 
@@ -58,7 +62,7 @@ impl Network {
     pub fn zeros(layer_sizes: &[usize], activation_fn: Box<dyn ActivationFn>) -> Result<Self, NetworkError> {
         check_layer_sizes(layer_sizes)?;
 
-        let layers: Vec<Layer> = construct_layers(layer_sizes, |input_size, output_size| Layer::zeros(
+        let layers: Vec<Layer> = construct_layers(layer_sizes, |input_size, output_size, n| Layer::zeros(
             input_size,
             output_size,
             activation_fn.clone(),
@@ -69,15 +73,19 @@ impl Network {
 
     pub fn random(
         layer_sizes: &[usize],
-        activation_fn: Box<dyn ActivationFn>,
+        activation_fns: &[Box<dyn ActivationFn>],
         distribution: &impl Distribution<f32>
     ) -> Result<Self, NetworkError> {
         check_layer_sizes(layer_sizes)?;
 
-        let layers: Vec<Layer> = construct_layers(layer_sizes, |input_size, output_size| Layer::random(
+        if activation_fns.len() != layer_sizes.len() - 1 {
+            return Err(NetworkError::ActivationFnCountError(layer_sizes.len() - 1, activation_fns.len()));
+        }
+
+        let layers: Vec<Layer> = construct_layers(layer_sizes, |input_size, output_size, i| Layer::random(
             input_size,
             output_size,
-            activation_fn.clone(),
+            activation_fns[i].clone(),
             distribution,
         ))?;
 
