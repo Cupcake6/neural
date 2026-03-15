@@ -1,6 +1,7 @@
 pub mod sigmoid;
 pub mod leaky_relu;
 pub mod tanh;
+pub mod swish;
 
 pub trait ActivationFn: 'static + ActivationFnClone {
     fn apply(&self, x: f32) -> f32;
