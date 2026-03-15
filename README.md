@@ -7,7 +7,7 @@ I built this project to get a grasp of how neural networks and machine learning 
 ## Features
 - Multilayer feedforward architecture
 - Arbitrary layer sizes
-- Custom activation function
+- Custom activation functions
 - Custom loss functions
 - Gradient computation via backpropagation
 - Different activation functions per layer
