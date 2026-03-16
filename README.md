@@ -18,16 +18,16 @@ I built this project to get a grasp of how neural networks and machine learning 
 let mut network = Network::random(
     &[2, 4, 4, 1], 
     &[Sigmoid::new(), LeakyReLU::new(0.5), Swish::new()],
-    &Uniform::new(-0.5, 0.5).unwrap()
+    &distr::Uniform::new(-0.5, 0.5).unwrap()
 ).unwrap();
 
 // Perform one iteration of training on a dataset
-network.learn(&dataset, &losses::MSE, 0.01).unwrap();
+network.learn(&dataset, &MSE, 0.01).unwrap();
 
 // Feed inputs into the network
 let outputs = network.forward(dvector![
-  1.0, 2.0
-]).unwrap()
+    1.0, 2.0
+]).unwrap();
 ```
 
 ## Architecture

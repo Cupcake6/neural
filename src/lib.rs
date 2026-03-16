@@ -10,4 +10,7 @@ pub mod losses;
 #[allow(unused_variables)]
 pub mod dataset;
 
+#[allow(unused_variables)]
+pub mod prelude;
+
 pub use rand;

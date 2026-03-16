@@ -1,7 +1,14 @@
-pub mod sigmoid;
-pub mod leaky_relu;
-pub mod tanh;
-pub mod swish;
+mod sigmoid;
+pub use sigmoid::Sigmoid;
+
+mod leaky_relu;
+pub use leaky_relu::LeakyReLU;
+
+mod tanh;
+pub use tanh::Tanh;
+
+mod swish;
+pub use swish::Swish;
 
 pub trait ActivationFn: 'static + ActivationFnClone {
     fn apply(&self, x: f32) -> f32;
