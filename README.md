@@ -48,7 +48,7 @@ let mut network = Network::random(
 
 // Perform one thousand iterations of training on the dataset
 for _ in 0..1000 {
-    network.learn(set, &BCE, 0.5).unwrap();
+    network.learn(dataset, &BCE, 0.5).unwrap();
 }
 
 // The model now approximates the XOR function reasonably well
