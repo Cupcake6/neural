@@ -41,14 +41,14 @@ let dataset = &[ // XOR function training dataset
 
 // Create a new network with random weights and biases
 let mut network = Network::random(
-    &[2, 4, 4, 1], 
-    &[Sigmoid::new(), LeakyReLU::new(0.5), Swish::new()],
+    &[2, 2, 1], 
+    &[Swish::new(), Sigmoid::new()],
     &distr::Uniform::new(-0.5, 0.5).unwrap()
 ).unwrap();
 
-// Perform one thousand iterations of training on the dataset
-for _ in 0..1000 {
-    network.learn(dataset, &BCE, 0.5).unwrap();
+// Perform 2000 iterations of training on the dataset
+for _ in 0..2000 {
+    network.learn(dataset, &BCE, 0.4).unwrap();
 }
 
 // The model now approximates the XOR function reasonably well
@@ -56,7 +56,7 @@ for _ in 0..1000 {
 // Feed inputs into the network
 let output = network.forward(dvector![
     0.0, 1.0
-]).unwrap(); 
+]).unwrap();
 
 // output[0] ~= 1.0
 ```
