@@ -1,8 +1,10 @@
 # neural
-A small machine learning library in Rust that allows training and executing simple feedforward neural networks
+A small machine learning library in Rust that allows training and executing simple feedforward neural networks.
+
+Check out [some examples of it being in action](https://github.com/Cupcake6/neural-examples).
 
 ## Motivation
-I built this project to get a grasp of how neural networks and machine learning work internally. While implementing it, I learned the basics of multivariable calculus behind gradient descent and backpropagation.
+I built this project to understand how neural networks work internally by implementing them from scratch. My goal was to turn pure mathematical concepts into a working machine learning library in Rust. During development I explored the multivariable calculus behind gradient descent and backpropagation.
 
 ## Features
 - Fully customizable multilayer feedforward networks
@@ -44,13 +46,19 @@ let mut network = Network::random(
     &distr::Uniform::new(-0.5, 0.5).unwrap()
 ).unwrap();
 
-// Perform one iteration of training on a dataset
-network.learn(dataset, &MSE, 0.01).unwrap();
+// Perform one thousand iterations of training on the dataset
+for _ in 0..1000 {
+    network.learn(set, &BCE, 0.5).unwrap();
+}
+
+// The model now approximates the XOR function reasonably well
 
 // Feed inputs into the network
-let outputs = network.forward(dvector![
+let output = network.forward(dvector![
     0.0, 1.0
-]).unwrap();
+]).unwrap(); 
+
+// output[0] ~= 1.0
 ```
 
 ## Architecture
