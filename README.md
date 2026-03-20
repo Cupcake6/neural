@@ -11,6 +11,7 @@ I built this project to understand how neural networks work internally by implem
 - Arbitrary layer sizes and per-layer activation functions
 - Support for custom activation and loss functions
 - Gradient computation via backpropagation
+- Model serialization / saving and loading
 
 ## Getting started
 Clone the repository or add it as a submodule:
