@@ -70,7 +70,6 @@ let output = network.forward(dvector![
 - `nalgebra` is used for matrix/vector operations
 
 ## Future improvements
-- Model serialization / saving and loading
 - Additional initialization methods
 - Mini-batch training support
 - Remove `nalgebra` from the public interface
