@@ -1,4 +1,5 @@
 use crate::activations::ActivationFn;
+use std::any::Any;
 
 #[derive(Clone)]
 pub struct Swish;
@@ -19,4 +20,6 @@ impl ActivationFn for Swish {
         let sigmoid = 1.0 / (1.0 + (-x).exp());
         sigmoid + x * sigmoid * (1.0 - sigmoid)
     }
+
+    fn as_any(&self) -> &dyn Any { self }
 }

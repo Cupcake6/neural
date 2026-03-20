@@ -13,7 +13,7 @@ use layer::{Layer, LayerError};
 pub mod layer;
 
 pub struct Network {
-    layers: Vec<Layer>,
+    pub(crate) layers: Vec<Layer>,
 }
 
 #[derive(Debug, Error)]

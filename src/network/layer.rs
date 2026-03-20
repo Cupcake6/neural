@@ -147,6 +147,9 @@ impl Layer {
     pub fn output_size(&self) -> usize { self.weights.nrows() }
 
     #[inline]
+    pub fn weight_count(&self) -> usize { self.weights.len() }
+
+    #[inline]
     pub fn get_weight(&self, input: usize, output: usize) -> Option<&f32> {
         self.weights.get((output, input))
     }
@@ -169,6 +172,11 @@ impl Layer {
     #[inline]
     pub fn get_previous_input(&'_ self) -> DVectorView<'_, f32> {
         self.previous_inputs.as_view()
+    }
+
+    #[inline]
+    pub fn get_activation_fn(&self) -> &Box<dyn ActivationFn> {
+        &self.activation_fn
     }
 
     fn check_input_size(&self, input_size: usize) -> Result<(), LayerError> {

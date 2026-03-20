@@ -1,4 +1,5 @@
 use crate::activations::ActivationFn;
+use std::any::Any;
 
 #[derive(Clone)]
 pub struct Sigmoid;
@@ -16,4 +17,6 @@ impl ActivationFn for Sigmoid {
     fn derivative(&self, x: f32, activation: f32) -> f32 {
         activation * (1.0 - activation)
     }
+
+    fn as_any(&self) -> &dyn Any { self }
 }

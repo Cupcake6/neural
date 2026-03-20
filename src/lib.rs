@@ -13,4 +13,7 @@ pub mod dataset;
 #[allow(unused_variables)]
 pub mod prelude;
 
+#[allow(unused_variables)]
+pub mod model;
+
 pub use rand;

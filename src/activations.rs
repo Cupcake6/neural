@@ -1,4 +1,6 @@
 mod sigmoid;
+use std::any::Any;
+
 pub use sigmoid::Sigmoid;
 
 mod leaky_relu;
@@ -10,9 +12,10 @@ pub use tanh::Tanh;
 mod swish;
 pub use swish::Swish;
 
-pub trait ActivationFn: 'static + ActivationFnClone {
+pub trait ActivationFn: 'static + ActivationFnClone + Any {
     fn apply(&self, x: f32) -> f32;
     fn derivative(&self, x: f32, activation: f32) -> f32;
+    fn as_any(&self) -> &dyn Any;
 }
 
 pub trait ActivationFnClone {

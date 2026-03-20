@@ -1,4 +1,5 @@
 use crate::activations::ActivationFn;
+use std::any::Any;
 
 #[derive(Clone)]
 pub struct Tanh;
@@ -17,4 +18,6 @@ impl ActivationFn for Tanh {
     fn derivative(&self, x: f32, activation: f32) -> f32 {
         1.0 - activation * activation
     }
+
+    fn as_any(&self) -> &dyn Any { self }
 }

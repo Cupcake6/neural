@@ -1,7 +1,8 @@
 use crate::activations::ActivationFn;
+use std::any::Any;
 
 #[derive(Clone)]
-pub struct LeakyReLU(f32);
+pub struct LeakyReLU(pub f32);
 impl LeakyReLU {
     pub fn new(slope: f32) -> Box<Self> {
         Box::new(LeakyReLU(slope))
@@ -18,4 +19,6 @@ impl ActivationFn for LeakyReLU {
         if x > 0.0 { 1.0 }
         else { self.0 }
     }
+
+    fn as_any(&self) -> &dyn Any { self }
 }
