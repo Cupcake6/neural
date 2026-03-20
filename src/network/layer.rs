@@ -105,7 +105,13 @@ impl Layer {
         })
     }
 
-    pub fn forward(&mut self, inputs: DVector<f32>) -> Result<DVector<f32>, LayerError> {
+    pub fn forward(&self, inputs: DVector<f32>) -> Result<DVector<f32>, LayerError> {
+        self.check_input_size(inputs.len())?;
+        let weighted_sums = &self.weights * &inputs + &self.biases;
+        Ok(weighted_sums.map(|x| self.activation_fn.apply(x)))
+    }
+
+    pub fn forward_with_cache(&mut self, inputs: DVector<f32>) -> Result<DVector<f32>, LayerError> {
         self.check_input_size(inputs.len())?;
         self.previous_weighted_sums = &self.weights * &inputs + &self.biases;
         self.previous_inputs = inputs;

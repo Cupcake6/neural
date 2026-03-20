@@ -92,15 +92,21 @@ impl Network {
         Ok(Self { layers })
     }
 
-    pub fn forward(&mut self, input: DVector<f32>) -> Result<DVector<f32>, NetworkError> {
-        self.layers.iter_mut().try_fold(input, |activations, layer| {
+    pub fn forward(&self, input: DVector<f32>) -> Result<DVector<f32>, NetworkError> {
+        self.layers.iter().try_fold(input, |activations, layer| {
             layer.forward(activations).map_err(Into::into)
+        })
+    }
+
+    fn forward_with_cache(&mut self, input: DVector<f32>) -> Result<DVector<f32>, NetworkError> {
+        self.layers.iter_mut().try_fold(input, |activations, layer| {
+            layer.forward_with_cache(activations).map_err(Into::into)
         })
     }
 
     pub fn backpropagate(&mut self, dataset: &[Sample], loss: &impl LossFn) -> Result<(), NetworkError> {
         for sample in dataset.iter() {
-            let outputs = self.forward(sample.inputs().into_owned())?;
+            let outputs = self.forward_with_cache(sample.inputs().into_owned())?;
             let mut activation_partial_gradient = loss.partial_gradient(outputs.as_view(), sample.expected_outputs())?;
 
             activation_partial_gradient = self.layers.last_mut().unwrap().backpropagation_step(
