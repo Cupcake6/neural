@@ -1,19 +1,19 @@
 # neural
 A small machine learning library in Rust that allows training and executing simple feedforward neural networks.
 
-Check out [some examples of it being in action](https://github.com/Cupcake6/neural-examples).
+## Check out [some examples of it being in action](https://github.com/Cupcake6/neural-examples).
 
-## Motivation
-I built this project to understand how neural networks work internally by implementing them from scratch. My goal was to turn pure mathematical concepts into a working machine learning library in Rust. During development I explored the multivariable calculus behind gradient descent and backpropagation.
+# Motivation
+I built this project to understand how neural networks work internally by _implementing them from scratch_. I learned how the most basic feedforward networks are structured, how backpropagation computes the gradient of the loss function and the calculus behind it. I was able to turn those concepts into a working-yet-minimal library.
 
-## Features
+# Features
 - Fully customizable multilayer feedforward networks
 - Arbitrary layer sizes and per-layer activation functions
 - Support for custom activation and loss functions
 - Gradient computation via backpropagation
 - Model serialization / saving and loading
 
-## Getting started
+# Getting started
 Clone the repository or add it as a submodule:
 ``` shell
 git clone https://github.com/Cupcake6/neural.git
@@ -28,7 +28,7 @@ neural = { path = "path/to/cloned/repository" }
 nalgebra = "0.34.1"
 ```
 
-## Example usage
+# Example usage
 ``` rust
 use neural::prelude::*;
 use nalgebra::dvector;
@@ -62,7 +62,7 @@ let output = network.forward(dvector![
 // output[0] ~= 1.0
 ```
 
-## Architecture
+# Architecture
 - A network is a sequence of layers
 - Each layer stores its weights, biases and activation function
 - The network trains using gradient descent
@@ -70,7 +70,19 @@ let output = network.forward(dvector![
 - Activation and loss functions are regular Rust structs
 - `nalgebra` is used for matrix/vector operations
 
-## Future improvements
+# What I learned
+- Basic calculus, including derivatives
+- How those concepts extend into multivariable calculus
+- How neural networks are structured
+- Why gradient descent works this wonderfully
+- How backpropagation works mathematically and in code
+
+# Limitations
+- Runs on a single CPU core
+- Only supports fully connected feedforward networks
+- No automatic differentiation
+
+# Future improvements
 - Additional initialization methods
 - Mini-batch training support
 - Remove `nalgebra` from the public interface
